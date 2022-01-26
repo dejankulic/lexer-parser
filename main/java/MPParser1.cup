@@ -1,0 +1,207 @@
+
+import java.io.*;
+import java.util.*;
+
+import SymbolTable.*;
+
+
+
+init with {:
+	symbolTable = new SymbolTable();
+:}
+
+terminal main, lp, rp, lb, rb, comma, id, or, semi, TWODOTS, INT, CHAR, REAL, BOOL, repeat,until;
+terminal read, write, and, less, LE, equals, nequals, greater, ge, plus, minus, multiply,divide, assign, constanta;
+
+non terminal Program, Block, VarList, VarDecl, NameList, Type, StatementList, Statement;
+non terminal Expression, AndExpression, RelExpression, RelOp,ArExpression;
+non terminal Term, Factor, ExpressionList;
+
+//Grammar
+
+Program ::= main lp rp Block
+            {:
+                System.out.println("Smena 1");
+            :};
+
+Block ::= lb VarList StatementList rb
+            {:
+                System.out.println("Smena 2");
+            :};
+
+VarList ::= VarList VarDecl
+            {:
+                System.out.println("Smena 3");
+            :}
+            | VarDecl
+            {:
+                System.out.println("Smena 4");
+            :};
+
+VarDecl ::= NameList TWODOTS Type semi
+            {:
+                System.out.println("Smena 5");
+            :};
+
+NameList ::= NameList comma id
+			{:
+                System.out.println("Smena 6");
+            :}
+                | id
+            {:
+                System.out.println("Smena 7");
+            :};
+
+
+Type ::= INT
+        {:
+            System.out.println("Smena 8");
+        :}
+        | CHAR
+        {:
+            System.out.println("Smena 9");
+        :}
+        | REAL
+        {:
+            System.out.println("Smena 10");
+        :}
+        | BOOL
+        {:
+            System.out.println("Smena 11");
+        :};
+
+StatementList ::= StatementList Statement
+        {:
+            System.out.println("Smena 12");
+        :}
+      | Statement
+        {:
+            System.out.println("Smena 13");
+        :};
+
+Statement ::= repeat StatementList until Expression
+         {:
+         	System.out.println("Smena 14");
+         :}
+         | id assign Expression semi
+         {:
+            System.out.println("Smena 15");
+         :}
+         | read lp NameList rp semi
+         {:
+            System.out.println("Smena 16");
+         :}
+         | write lp ExpressionList rp semi
+         {:
+            System.out.println("Smena 17");
+         :}
+         | Block
+         {:
+            System.out.println("Smena 18");
+         :};
+
+Expression ::= Expression or AndExpression
+		 {:
+            System.out.println("Smena 19");
+		 :}
+		 | AndExpression or error
+         {:
+            System.out.println("Smena 20");
+         :};
+        // | AndExpression or error
+         //{:
+           // System.out.println("Smena 21");
+        // :};
+
+AndExpression ::= AndExpression and RelExpression
+		{:
+            System.out.println("Smena 22");
+		:}
+          | RelExpression
+        {:
+            System.out.println("Smena 23");
+        :};
+
+RelExpression ::= ArExpression RelOp ArExpression
+        {:
+            System.out.println("Smena 24");
+		:}
+        | ArExpression
+        {:
+            System.out.println("Smena 25");
+        :};
+
+RelOp ::= less
+        {:
+            System.out.println("Smena 26");
+        :}
+        | LE
+        {:
+            System.out.println("Smena 27");
+        :}
+        | equals
+        {:
+            System.out.println("Smena 28");
+        :}
+        | nequals
+        {:
+            System.out.println("Smena 29");
+        :}
+        | greater
+        {:
+            System.out.println("Smena 30");
+        :}
+        | ge
+        {:
+            System.out.println("Smena 31");
+        :}
+        ;
+
+ArExpression ::= ArExpression plus Term
+        {:
+            System.out.println("Smena 32");
+        :}
+        | ArExpression minus Term
+        {:
+            System.out.println("Smena 33");
+        :}
+        | Term
+        {:
+            System.out.println("Smena 34");
+        :}
+        ;
+
+Term  ::= Term multiply Factor
+		{:
+		   System.out.println("Smena 35");
+		:}
+         | Term divide Factor
+        {:
+            System.out.println("Smena 36");
+        :}
+         | Factor
+        {:
+            System.out.println("Smena 37");
+        :};
+         
+Factor ::= id
+        {:
+            System.out.println("Smena 38");
+        :}
+      | constanta
+        {:
+            System.out.println("Smena 39");
+        :}
+      | lp Expression rp
+        {:
+            System.out.println("Smena 40");
+        :};
+
+ExpressionList ::= ExpressionList comma Expression
+          {:
+            System.out.println("Smena 41");
+          :}
+         | Expression
+         {:
+            System.out.println("Smena 42");
+         :};
